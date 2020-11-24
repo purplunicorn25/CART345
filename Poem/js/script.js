@@ -62,6 +62,7 @@ function draw() {
 // Change color if hovered
 // If white, redirect to another page
 function hover() {
+  console.log(fillColor);
   if (fillColor < 255) {
     // Calculate the distance between the rectangle and the user
     let d = dist(250, 250, mouseX, mouseY);
@@ -79,7 +80,7 @@ function hover() {
         fillColor -= 2;
       }
     }
-  } else if (fillColor == 255) {
+  } else if (fillColor >= 255) {
     redirect();
   }
 }
@@ -107,5 +108,6 @@ function drawBox() {
 //
 // Redirect to another page
 function redirect() {
-  window.location.replace("box.html");
+  console.log('start');
+  window.location.href = "box.html";
 }
