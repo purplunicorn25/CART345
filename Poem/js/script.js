@@ -9,7 +9,7 @@ Merely a black box button that
 rotates and reacts when hovered.
 
 ******************/
-
+// START
 // BOX
 let angle = 0;
 let boxSize = 175;
@@ -27,12 +27,19 @@ let buttonPar = {
   w: 200,
   h: 200
 };
+// CONTROL
+let start = true;
 
+// ENVIRONMENT
+let camera;
 // setup()
 //
 // Create the canvas and button
 function setup() {
-  createCanvas(500, 500, WEBGL);
+  createCanvas(windowWidth, windowHeight, WEBGL);
+  camera = createCamera();
+  setCamera(camera);
+
   initiateButton();
 }
 
@@ -40,6 +47,7 @@ function setup() {
 //
 // Create a transparent rectangle
 function initiateButton() {
+  // draw the button
   push();
   noStroke();
   noFill();
@@ -50,38 +58,46 @@ function initiateButton() {
 
 // draw()
 //
-// Handle the element on button
+// Handle the button that initiate the experience
 function draw() {
   background(backgroundColor);
-  hover();
+  // Determine when the user starts the game
+  if (start != true) {
+    hover();
+  } else {
+    boxEnvironment();
+  }
 }
 
 // hover()
 //
 // Check the distance between the mouse and button
 // Change color if hovered
-// If white, redirect to another page
+// If white, enter box environment
 function hover() {
-  console.log(fillColor);
   if (fillColor < 255) {
     // Calculate the distance between the rectangle and the user
-    let d = dist(250, 250, mouseX, mouseY);
+    let d = dist(windowWidth / 2, windowHeight / 2, mouseX, mouseY);
     // Check if hovered
-    if (d <= buttonPar.h / 2) {
+    if (d <= buttonPar.h * .55) {
       // Rotate on the other side (more right (-) counters left (+) rotation)
       angle += -0.02;
+      // Draw the box and dilude its color
       drawBox();
       fillColor += 1.5;
     } else {
+      // If release go back to original form
       backgroundColor = white;
       drawBox();
       strokeColor = white;
+      // The color becomes saturated again
       if (fillColor > 0) {
         fillColor -= 2;
       }
     }
+    // If the box turns completely white, enter the box
   } else if (fillColor >= 255) {
-    redirect();
+    start = true;
   }
 }
 
@@ -104,10 +120,40 @@ function drawBox() {
   pop();
 }
 
-// redirect
 //
-// Redirect to another page
-function redirect() {
-  console.log('start');
-  window.location.href = "box.html";
+//
+//
+function boxEnvironment() {
+  cameraControls();
+
+
+  push();
+  fill(255);
+  box(10);
+  pop();
+
+  let environment = new Cube(0, 0, 200);
+  environment.display();
+}
+
+//
+//
+//
+function cameraControls() {
+
+  let lateral = 0;
+  let lineal = 0;
+  // Movement on x and y axis
+  if (keyIsDown(LEFT_ARROW)) {
+    lateral += 15;
+    console.log('left');
+  }
+  console.log(lateral);
+  let X = lateral;
+  // Eye in
+  camera.lookAt(X, 0, 0);
+  camera.setPosition(20, 0, 120);
+  // camera(X, 0, 100, 0, 0, 0, 0, 1, 0);
+
+
 }
