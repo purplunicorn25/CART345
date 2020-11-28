@@ -32,15 +32,47 @@ let start = true;
 
 // ENVIRONMENT
 let camera;
+let environmentSize = 1000;
+// Value that moves from one to the next
+let active = 2;
+// setPosition(0, 0, 500) positions for clockwise rotation
+let perspective = [0, 0, 500, 500, 0, 0, 0, 0, -500, -500, 0, 0];
+// CAMERA MOVEMENT
+let leftArrow = false;
+let rightArrow = false;
+
+// FONTS
+let regularFont;
+
+// %TEMP%
+let wallpaper = ["YOU KNOW", "SHOULD I", "THEY SAY", "WHAT DO/DOES", "I HOPE", "MAYBE"]
+
+// preload()
+//
+//
+function preload() {
+  regularFont = loadFont('assets/fonts/Lato-Regular.ttf');
+}
+
 // setup()
 //
 // Create the canvas and button
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
+  initiateCamera();
+  initiateButton();
+}
+
+// initiateCamera()
+//
+// Create a camera and a perspective
+function initiateCamera() {
+  // Create the camera
   camera = createCamera();
   setCamera(camera);
-
-  initiateButton();
+  // Set its position and angle
+  camera.setPosition(perspective[0], perspective[1], perspective[2]);
+  camera.lookAt(0, 0, 0);
 }
 
 // initiateButton()
@@ -131,29 +163,37 @@ function boxEnvironment() {
   fill(255);
   box(10);
   pop();
-
-  let environment = new Cube(0, 0, 200);
+  //   constructor(x, y, size, fill, textures)
+  let environment = new Cube(0, 0, environmentSize, 50, wallpaper);
   environment.display();
+  environment.texture();
 }
 
 //
 //
 //
 function cameraControls() {
-
-  let lateral = 0;
-  let lineal = 0;
-  // Movement on x and y axis
+  // console.log(perspective[active + 2], perspective[active + 3], perspective[active + 4]);
+  // Switch from one perspective to another
   if (keyIsDown(LEFT_ARROW)) {
-    lateral += 15;
-    console.log('left');
+    incrementPerspective();
   }
-  console.log(lateral);
-  let X = lateral;
-  // Eye in
-  camera.lookAt(X, 0, 0);
-  camera.setPosition(20, 0, 120);
-  // camera(X, 0, 100, 0, 0, 0, 0, 1, 0);
+  if (keyIsDown(RIGHT_ARROW)) {
+    decrementPerspective();
+  }
+  console.log(active);
+  // Constrain between -3 and 3
+  if (active > 3 || active < -3) {
+    active = 0;
+  }
+}
 
+function incrementPerspective() {
+  active++;
+  return false;
+}
 
+function decrementPerspective() {
+  active--;
+  return false;
 }
