@@ -34,12 +34,25 @@ let start = true;
 let camera;
 let environmentSize = 1000;
 // Value that moves from one to the next
-let active = 2;
+let active = 0;
 // setPosition(0, 0, 500) positions for clockwise rotation
-let perspective = [0, 0, 500, 500, 0, 0, 0, 0, -500, -500, 0, 0];
-// CAMERA MOVEMENT
-let leftArrow = false;
-let rightArrow = false;
+let perspective = [{
+  x: 0,
+  y: 0,
+  z: 500
+}, {
+  x: 500,
+  y: 0,
+  z: 0
+}, {
+  x: 0,
+  y: 0,
+  z: -500
+}, {
+  x: -500,
+  y: 0,
+  z: 0
+}];
 
 // FONTS
 let regularFont;
@@ -71,8 +84,7 @@ function initiateCamera() {
   camera = createCamera();
   setCamera(camera);
   // Set its position and angle
-  camera.setPosition(perspective[0], perspective[1], perspective[2]);
-  camera.lookAt(0, 0, 0);
+  updateCamera();
 }
 
 // initiateButton()
@@ -97,7 +109,7 @@ function draw() {
   if (start != true) {
     hover();
   } else {
-    boxEnvironment();
+    game();
   }
 }
 
@@ -155,45 +167,75 @@ function drawBox() {
 //
 //
 //
-function boxEnvironment() {
+function game() {
+  createEnvironment();
+  createDie();
   cameraControls();
+  console.log(active);
 
-
-  push();
-  fill(255);
-  box(10);
-  pop();
-  //   constructor(x, y, size, fill, textures)
-  let environment = new Cube(0, 0, environmentSize, 50, wallpaper);
-  environment.display();
-  environment.texture();
 }
 
 //
 //
 //
+function createEnvironment() {
+  //   constructor(x, y, size, fill, textures)
+  let environment = new Cube(0, 0, environmentSize, 50, 8, wallpaper);
+  environment.createFaces();
+  environment.display();
+  // environment.texture();
+}
+
+//
+//
+//
+function createDie() {
+  //   constructor(x, y, size, fill, textures)
+  let die = new Cube(0, 0, 50, 0, 0, wallpaper);
+  let die2 = new Cube(0, 0, 50, 255, 2, []);
+  // die.display();
+  // die2.display();
+  // die.texture()
+  // Puts the text at the same place grrrrrrrrrrrrrrrrrrrrr
+
+}
+
+// cameraControls() & more
+//
+// Rotate around the die clockwise, look up and down
 function cameraControls() {
-  // console.log(perspective[active + 2], perspective[active + 3], perspective[active + 4]);
-  // Switch from one perspective to another
-  if (keyIsDown(LEFT_ARROW)) {
-    incrementPerspective();
+  // If UP_ARROW is down, look up
+  if (keyIsDown(38)) {
+    console.log('up');
+    camera.lookAt(0, -750, 0);
+    // If DOWN_ARROW is down, look down
+  } else if (keyIsDown(40)) {
+    console.log('down');
+    camera.lookAt(0, 750, 0);
+    // If no is down, look straight
+  } else {
+    camera.lookAt(0, 0, 0);
   }
-  if (keyIsDown(RIGHT_ARROW)) {
-    decrementPerspective();
-  }
-  console.log(active);
-  // Constrain between -3 and 3
+  // Constrain the perspective to the four "walls"
   if (active > 3 || active < -3) {
     active = 0;
+    updateCamera();
   }
 }
-
+// Clockwise rotation
+function keyReleased() {
+  if (keyCode === 39) {
+    incrementPerspective();
+    updateCamera();
+  }
+}
+// Increment the active variable to rotate
 function incrementPerspective() {
   active++;
   return false;
 }
-
-function decrementPerspective() {
-  active--;
-  return false;
+// Update the position and restaure the angle of the camera
+function updateCamera() {
+  camera.setPosition(perspective[abs(active)].x, perspective[abs(active)].y, perspective[abs(active)].z);
+  camera.lookAt(0, 0, 0);
 }
