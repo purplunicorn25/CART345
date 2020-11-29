@@ -40,17 +40,17 @@ let active = 0;
 let perspective = [{
   x: 0,
   y: 0,
-  z: 500
+  z: -500
 }, {
-  x: 500,
+  x: -500,
   y: 0,
   z: 0
 }, {
   x: 0,
   y: 0,
-  z: -500
+  z: 500
 }, {
-  x: -500,
+  x: 500,
   y: 0,
   z: 0
 }];
@@ -60,12 +60,15 @@ let regularFont;
 
 // %TEMP%
 let wallpaper = ["YOU KNOW", "SHOULD I", "THEY SAY", "WHAT\n DO/DOES", "I HOPE", "MAYBE"]
+let numbers = ['1', '2', '3', '4', '5', '6'];
+let poem = ['', '', 'this is a very long long long long long long\n line of text.'];
 
 // preload()
 //
 //
 function preload() {
-  regularFont = loadFont('assets/fonts/Lato-Regular.ttf');
+  // regularFont = loadFont('assets/fonts/Lato-Regular.ttf');
+  regularFont = loadFont('assets/fonts/ttf/FiraCode-Regular.ttf');
 }
 
 // setup()
@@ -169,20 +172,30 @@ function drawBox() {
 //
 //
 function game() {
+  orbitControl(1.2, 1.2, 0);
   cameraControls();
+  createWorld();
   createEnvironment();
   createDie();
-  console.log(active);
+}
 
+//
+//
+//
+function createWorld() {
+  // constructor(x, y, size, fill, stroke, textures, textSize,  strokefill)
+  let world = new Cube(0, 0, environmentSize * 1.5, 50, 0, poem, 100, (200, 50, 180));
+  world.createFacesExt();
+  world.displayWorld();
 }
 
 //
 //
 //
 function createEnvironment() {
-  //   constructor(x, y, size, fill, stroke, textures, textSize,  strokefill)
-  let environment = new Cube(0, 0, environmentSize, 0, 8, [], 75, 255);
-  environment.createFaces();
+  // constructor(x, y, size, fill, stroke, textures, textSize,  strokefill)
+  let environment = new Cube(0, 0, environmentSize, 0, 8, numbers, 75, 255);
+  environment.createFacesInt();
   environment.display();
 }
 
@@ -191,37 +204,42 @@ function createEnvironment() {
 //
 function createDie() {
   // constructor(x, y, size, fill, stroke, textures, textSize, strokeFill)
-  let die = new Cube(0, 0, 150, (20, 100, 250), 0, wallpaper, 30, 0);
-  die.createFaces();
+  let die = new Cube(0, 0, 50, (20, 100, 250), 0, numbers, 30, 0);
+  die.createFacesExt();
   die.display();
 }
+
+
 
 // cameraControls() & more
 //
 // Rotate around the die clockwise, look up and down
 function cameraControls() {
-  // If UP_ARROW is down, look up
-  if (keyIsDown(38)) {
-    console.log('up');
-    camera.lookAt(0, -750, 0);
-    // If DOWN_ARROW is down, look down
-  } else if (keyIsDown(40)) {
-    console.log('down');
-    camera.lookAt(0, 750, 0);
-    // If no is down, look straight
-  } else {
-    camera.lookAt(0, 0, 0);
-  }
   // Constrain the perspective to the four "walls"
   if (active > 3 || active < -3) {
     active = 0;
     updateCamera();
   }
+  // If UP_ARROW is down, look up
+  if (keyIsDown(38)) {
+    camera.lookAt(0, -750, 0);
+    // If DOWN_ARROW is down, look down
+  } else if (keyIsDown(40)) {
+    camera.lookAt(0, 750, 0);
+    // Show the exterior by pressing spacebar
+  } else if (keyIsDown(32)) {
+    camera.setPosition(perspective[abs(active)].x, perspective[abs(active)].y, perspective[abs(active)].z - 2000);
+  }
 }
 // Clockwise rotation
 function keyReleased() {
+  // 4 perspective around the center
   if (keyCode === 39) {
     incrementPerspective();
+    updateCamera();
+  }
+  // If not down, reset the camera, but only once to get the orbitControl working
+  if (keyCode === 38 || keyCode === 40 || keyCode === 32) {
     updateCamera();
   }
 }

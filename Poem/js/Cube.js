@@ -26,44 +26,93 @@ class Cube {
     this.faces = [];
   }
 
-  // createFaces()
+  // createFacesInt()
   //
   //
-  createFaces() {
+  createFacesInt() {
     let face0 = {
+      rotateX: 0,
+      rotateY: 180,
+      translate: -this.size / 2,
+      color: 150
+    };
+    let face1 = {
+      rotateX: 0,
+      rotateY: 270,
+      translate: -this.size / 2,
+      color: this.fill
+
+    };
+    let face2 = {
       rotateX: 0,
       rotateY: 0,
       translate: -this.size / 2,
       color: this.fill
+
+    };
+    let face3 = {
+      rotateX: 0,
+      rotateY: 90,
+      translate: -this.size / 2,
+      color: this.fill
+    };
+    let face4 = {
+      rotateX: 90,
+      rotateY: 0,
+      translate: this.size / 2,
+      color: this.fill
+    };
+    let face5 = {
+      rotateX: 90,
+      rotateY: 0,
+      translate: -this.size / 2,
+      color: this.fill
+    };
+    // Append to array
+    for (let i = 0; i < 6; i++) {
+      let face = eval(`face${i}`);
+      append(this.faces, face);
+    }
+  }
+
+  // createFacesExt()
+  //
+  //
+  createFacesExt() {
+    let face0 = {
+      rotateX: 0,
+      rotateY: 0,
+      translate: this.size / 2,
+      color: 150
     };
     let face1 = {
       rotateX: 0,
-      rotateY: 0,
+      rotateY: 90,
       translate: this.size / 2,
       color: this.fill
     };
     let face2 = {
       rotateX: 0,
-      rotateY: 90,
-      translate: -this.size / 2,
+      rotateY: 180,
+      translate: this.size / 2,
       color: this.fill
     };
     let face3 = {
       rotateX: 0,
-      rotateY: 90,
+      rotateY: 270,
       translate: this.size / 2,
       color: this.fill
     };
     let face4 = {
       rotateX: 90,
       rotateY: 0,
-      translate: -this.size / 2,
+      translate: this.size / 2,
       color: this.fill
     };
     let face5 = {
       rotateX: 90,
       rotateY: 0,
-      translate: this.size / 2,
+      translate: -this.size / 2,
       color: this.fill
     };
     // Append to array
@@ -98,4 +147,30 @@ class Cube {
       pop();
     }
   }
+  // display()
+  //
+  // Faces are placed around a center point
+  displayWorld() {
+    for (let i = 0; i < this.faces.length; i++) {
+      push();
+      // Set parameters for planes
+      angleMode(DEGREES);
+      noFill()
+      noStroke();
+      rotateX(this.faces[i].rotateX);
+      rotateY(this.faces[i].rotateY);
+      translate(0, 0, this.faces[i].translate);
+      // Create plane
+      this.faces[i] = plane(this.size - this.fakeStroke);
+      // Text parameters
+      fill(this.strokeFill);
+      textAlign(CENTER);
+      textFont(regularFont);
+      textSize(this.textSize);
+      // Apply text
+      this.faces[i].text(this.textures[i], 0, 0);
+      pop();
+    }
+  }
+
 }
