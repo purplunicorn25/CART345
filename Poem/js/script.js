@@ -19,6 +19,7 @@ let white = 255;
 let fillColor = black;
 let strokeColor = white;
 let backgroundColor = white;
+let boxSpeed = 1.15;
 // BUTTON
 let button;
 let buttonPar = {
@@ -58,7 +59,7 @@ let perspective = [{
 let regularFont;
 
 // %TEMP%
-let wallpaper = ["YOU KNOW", "SHOULD I", "THEY SAY", "WHAT DO/DOES", "I HOPE", "MAYBE"]
+let wallpaper = ["YOU KNOW", "SHOULD I", "THEY SAY", "WHAT\n DO/DOES", "I HOPE", "MAYBE"]
 
 // preload()
 //
@@ -128,7 +129,7 @@ function hover() {
       angle += -0.02;
       // Draw the box and dilude its color
       drawBox();
-      fillColor += 1.5;
+      fillColor += boxSpeed;
     } else {
       // If release go back to original form
       backgroundColor = white;
@@ -164,13 +165,13 @@ function drawBox() {
   pop();
 }
 
-//
+// game()
 //
 //
 function game() {
+  cameraControls();
   createEnvironment();
   createDie();
-  cameraControls();
   console.log(active);
 
 }
@@ -179,25 +180,20 @@ function game() {
 //
 //
 function createEnvironment() {
-  //   constructor(x, y, size, fill, textures)
-  let environment = new Cube(0, 0, environmentSize, 50, 8, wallpaper);
+  //   constructor(x, y, size, fill, stroke, textures, textSize,  strokefill)
+  let environment = new Cube(0, 0, environmentSize, 0, 8, [], 75, 255);
   environment.createFaces();
   environment.display();
-  // environment.texture();
 }
 
 //
 //
 //
 function createDie() {
-  //   constructor(x, y, size, fill, textures)
-  let die = new Cube(0, 0, 50, 0, 0, wallpaper);
-  let die2 = new Cube(0, 0, 50, 255, 2, []);
-  // die.display();
-  // die2.display();
-  // die.texture()
-  // Puts the text at the same place grrrrrrrrrrrrrrrrrrrrr
-
+  // constructor(x, y, size, fill, stroke, textures, textSize, strokeFill)
+  let die = new Cube(0, 0, 150, (20, 100, 250), 0, wallpaper, 30, 0);
+  die.createFaces();
+  die.display();
 }
 
 // cameraControls() & more
