@@ -2,7 +2,7 @@
   "description": "Enter Black Box",
   "verses": [{
       "verse": 0,
-      "anaphora": "You know",
+      "anaphora": "YOU\nKNOW",
       "lines": [
         "You know me more than I know you.",
         "You know what I read, what I watch, and what I listen to.",
@@ -19,7 +19,7 @@
     },
     {
       "verse": 1,
-      "anaphora": "Should I",
+      "anaphora": "SHOULD\nI",
       "lines": [
         "Should I push the power button saying, 'dear diary'?",
         "Should I ask if you know more than what I tell, but what difference does it make?",
@@ -35,7 +35,7 @@
     },
     {
       "verse": 2,
-      "anaphora": "They say",
+      "anaphora": "THEY\nSAY",
       "lines": [
         "They say you are intelligent.",
         "They say you are the future.",
@@ -50,7 +50,7 @@
     },
     {
       "verse": 3,
-      "anaphora": "What",
+      "anaphora": "WHAT",
       "lines": [
         "What does privacy mean to you? You hide behing an interface.",
         "What does efficiency mean to you? Is logic everything?",
@@ -64,7 +64,7 @@
     },
     {
       "verse": 4,
-      "anaphora": "I hope",
+      "anaphora": "I\nHOPE",
       "lines": [
         "I hope your memory is large enough to remember everything you care about.",
         "I hope you do not forget when you update, that would be cruel.",
@@ -77,7 +77,7 @@
     },
     {
       "verse": 5,
-      "anaphora": "Maybe",
+      "anaphora": "MAYBE",
       "lines": [
         "Maybe you cannot understand these words.",
         "Maybe they will think I am crazy to think of you as my companion.",

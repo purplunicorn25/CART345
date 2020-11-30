@@ -18,3 +18,16 @@ body {
   top: 0;
   z-index: 1;
 }
+
+@font-face {
+  font-family: "FiraCode-SemiBold";
+  src: url("C:/Users/anneb/Documents/01-CONCORDIA/04-FALL_2020/CART345/03_Final_Project/FINAL_345/Poem/assets/fonts/ttf/FiraCode-SemiBold.ttf");
+}
+
+.voice {
+  background-color: white;
+  font-family: 'FiraCode-SemiBold';
+  display: block;
+  color: grey;
+  z-index: 2;
+}

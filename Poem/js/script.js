@@ -29,7 +29,7 @@ let buttonPar = {
   h: 200
 };
 // CONTROL
-let start = true;
+let start = false;
 
 // ENVIRONMENT
 let camera;
@@ -57,11 +57,15 @@ let perspective = [{
 
 // FONTS
 let regularFont;
+let boldFont;
+
+// DIE
+let die;
+let faces;
 
 // %TEMP%
-let wallpaper = ["YOU KNOW", "SHOULD I", "THEY SAY", "WHAT\n DO/DOES", "I HOPE", "MAYBE"]
-let numbers = ['1', '2', '3', '4', '5', '6'];
 let poem;
+let wallpaper = ["this is an\nexample of a\nprojection", "", "this is another\nexample of a\nprojection", "", "", "Here's another"];
 
 // preload()
 //
@@ -69,6 +73,7 @@ let poem;
 function preload() {
   // regularFont = loadFont('assets/fonts/Lato-Regular.ttf');
   regularFont = loadFont('assets/fonts/ttf/FiraCode-Regular.ttf');
+  boldFont = loadFont('assets/fonts/ttf/FiraCode-Bold.ttf');
   poem = loadJSON('data/poem.json');
 }
 
@@ -79,24 +84,22 @@ function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   initiateCamera();
   initiateButton();
-  console.log(poem.verses[0]);
 }
 
-// initiateCamera()
+//initiate
 //
-// Create a camera and a perspective
+// initiateCamera()
 function initiateCamera() {
+  // Create a camera and a perspective
   // Create the camera
   camera = createCamera();
   setCamera(camera);
   // Set its position and angle
   updateCamera();
 }
-
 // initiateButton()
-//
-// Create a transparent rectangle
 function initiateButton() {
+  // Create a transparent rectangle
   // draw the button
   push();
   noStroke();
@@ -135,6 +138,7 @@ function hover() {
       // Draw the box and dilude its color
       drawBox();
       fillColor += boxSpeed;
+      intro();
     } else {
       // If release go back to original form
       backgroundColor = white;
@@ -151,6 +155,14 @@ function hover() {
   }
 }
 
+function intro() {
+  // for (let i = 0; i < 20; i++) {
+  //   let voice = createDiv("hear me out");
+  //   voice.class('voice');
+  //   voice.position(0, i * 10, 0);
+}
+
+
 // drawBox()
 //
 // Draw a box and rotate it
@@ -161,7 +173,7 @@ function drawBox() {
   stroke(strokeColor);
   strokeWeight(3);
   // Rotate
-  rotateX(-10);
+  rotateX(10);
   rotateY(angle);
   // Draw
   box(boxSize);
@@ -176,58 +188,89 @@ function drawBox() {
 function game() {
   orbitControl(1.2, 1.2, 0);
   cameraControls();
+  // CREATE
   createLetter();
   createEnvironment();
   createDie();
+  // HANDLE
+  handleDie();
 }
 
 // create()
 //
-// createWorld()
+// createLetter()
+// !!!!!!!!!!!!!!! TURN INTO 3D with another box, looks too flat !!!!!!!!!!!!!!!!!!!!
 function createLetter() {
+  // Assemble the poem
+  let description = "A  L E T T E R  T O  M Y  C O M P U T E R";
+  let title = "YOU && I\n";
+  let poemHalf1 = poem.verses[0].text + poem.verses[1].text + poem.verses[2].text;
+  let poemHalf2 = poem.verses[3].text + poem.verses[4].text + poem.verses[5].text;
+  // Backgroung
   let letter = {
-    w: 1800,
-    h: 1000,
-    fontSize: 16.5
+    fill: black,
+    size: 1000,
+    fontSize: 16
   }
-  push();
   // Set parameters for planes
+  push();
   angleMode(DEGREES);
-  fill(200);
   noStroke();
   rotateY(180);
-  translate(0, 0, 1500);
+  translate(-250, 0, 1500);
   // Create plane
-  let paper = plane(letter.w, letter.h);
+  fill(letter.fill);
+  let paper = plane(letter.size);
   // Text parameters
-  fill(0);
   textAlign(LEFT);
+  // Apply the text
+  //TITLE
+  fill(white);
+  textSize(letter.fontSize * 2);
   textFont(regularFont);
+  paper.text(title, -letter.size / 2 + 40, -letter.size / 2 + 70);
+  //FIRST PART
   textSize(letter.fontSize);
   textLeading(30);
-  let poemHalf1;
-  let poemHalf2;
-  // Apply text
-  poemHalf1 = poem.verses[0].text + poem.verses[1].text + poem.verses[2].text;
-  poemHalf2 = poem.verses[3].text + poem.verses[4].text + poem.verses[5].text;
-  paper.text(poemHalf1, -letter.w / 2 + 20, -letter.h / 2 + 30);
-  paper.text(poemHalf2, 90, -letter.h / 2 + 180);
+  paper.text(poemHalf1, -letter.size / 2 + 40, -letter.size / 2 + 110);
+  //SECOND PART
+  fill(black);
+  paper.text(poemHalf2, letter.size / 2 + 30, -letter.size / 2 + 230);
+  pop();
+  //DESCRIPTION
+  push();
+  fill(20, 200, 150);
+  textFont(boldFont);
+  textSize(letter.fontSize * 2.48);
+  rotateY(180);
+  rotateZ(-90);
+  translate(-250, 0, 1500);
+  text(description, -letter.size / 4, -letter.size / 1.3, letter.w);
   pop();
 }
 // Create cubes from the obj family
 // createEnvironment()
 function createEnvironment() {
   // constructor(x, y, size, fill, stroke, textures, textSize,  strokefill)
-  let environment = new Cube(0, 0, environmentSize, 0, 8, numbers, 75, 255);
+  let environment = new Cube(0, 0, environmentSize, 0, 8, wallpaper, 75, 255, false);
   environment.createFacesInt();
   environment.display();
 }
 // createDie()
 function createDie() {
+  // Create the array for the die faces
+  let anaphoras = [];
+  for (let i = 0; i < poem.verses.length; i++) {
+    append(anaphoras, poem.verses[i].anaphora);
+  }
+  // Create the die (the stroke), and the faces (the planes)
   // constructor(x, y, size, fill, stroke, textures, textSize, strokeFill)
-  let die = new Cube(0, 0, 50, (20, 100, 250), 0, numbers, 30, 0);
+  die = new Cube(0, 0, 99, white, 0, [], 25, 0, false);
   die.createFacesExt();
   die.display();
+  faces = new Cube(0, 0, 100, black, 3, anaphoras, 25, white, false);
+  faces.createFacesExt();
+  faces.display();
 }
 
 // cameraControls() & more
@@ -273,3 +316,8 @@ function updateCamera() {
   camera.setPosition(perspective[abs(active)].x, perspective[abs(active)].y, perspective[abs(active)].z);
   camera.lookAt(0, 0, 0);
 }
+
+//handle()
+//
+// handleDie()
+function handleDie() {}

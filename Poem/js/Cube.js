@@ -11,7 +11,7 @@ class Cube {
   //
   // Set the initial values for the Leaves properties
   // Either sets default values or use the arguments provided
-  constructor(x, y, size, fill, stroke, textures, textSize, strokeFill) {
+  constructor(x, y, size, fill, stroke, textures, textSize, strokeFill, animate) {
     // Position properties
     this.x = x;
     this.y = y;
@@ -24,6 +24,8 @@ class Cube {
     this.strokeFill = strokeFill;
     // Faces array
     this.faces = [];
+    // Animation
+    this.rotation = animate;
   }
 
   // createFacesInt()
@@ -34,7 +36,7 @@ class Cube {
       rotateX: 0,
       rotateY: 180,
       translate: -this.size / 2,
-      color: 150
+      color: this.fill
     };
     let face1 = {
       rotateX: 0,
@@ -83,7 +85,7 @@ class Cube {
       rotateX: 0,
       rotateY: 0,
       translate: this.size / 2,
-      color: 150
+      color: this.fill
     };
     let face1 = {
       rotateX: 0,
@@ -104,13 +106,13 @@ class Cube {
       color: this.fill
     };
     let face4 = {
-      rotateX: 90,
+      rotateX: -90,
       rotateY: 0,
       translate: this.size / 2,
       color: this.fill
     };
     let face5 = {
-      rotateX: 90,
+      rotateX: -90,
       rotateY: 0,
       translate: -this.size / 2,
       color: this.fill
@@ -132,14 +134,19 @@ class Cube {
       angleMode(DEGREES);
       fill(this.faces[i].color);
       noStroke();
-      rotateX(this.faces[i].rotateX);
-      rotateY(this.faces[i].rotateY);
+      if (this.rotation === true) {
+        rotateX(this.faces[i].rotateX + frameCount * .5);
+        rotateY(this.faces[i].rotateY + frameCount * .5);
+      } else {
+        rotateX(this.faces[i].rotateX);
+        rotateY(this.faces[i].rotateY);
+      }
       translate(0, 0, this.faces[i].translate);
       // Create plane
       this.faces[i] = plane(this.size - this.fakeStroke);
       // Text parameters
       fill(this.strokeFill);
-      textAlign(CENTER);
+      textAlign(CENTER, CENTER);
       textFont(regularFont);
       textSize(this.textSize);
       // Apply text
