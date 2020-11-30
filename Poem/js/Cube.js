@@ -147,30 +147,4 @@ class Cube {
       pop();
     }
   }
-  // display()
-  //
-  // Faces are placed around a center point
-  displayWorld() {
-    for (let i = 0; i < this.faces.length; i++) {
-      push();
-      // Set parameters for planes
-      angleMode(DEGREES);
-      noFill()
-      noStroke();
-      rotateX(this.faces[i].rotateX);
-      rotateY(this.faces[i].rotateY);
-      translate(0, 0, this.faces[i].translate);
-      // Create plane
-      this.faces[i] = plane(this.size - this.fakeStroke);
-      // Text parameters
-      fill(this.strokeFill);
-      textAlign(CENTER);
-      textFont(regularFont);
-      textSize(this.textSize);
-      // Apply text
-      this.faces[i].text(this.textures[i], 0, 0);
-      pop();
-    }
-  }
-
 }

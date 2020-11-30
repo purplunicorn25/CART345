@@ -61,7 +61,7 @@ let regularFont;
 // %TEMP%
 let wallpaper = ["YOU KNOW", "SHOULD I", "THEY SAY", "WHAT\n DO/DOES", "I HOPE", "MAYBE"]
 let numbers = ['1', '2', '3', '4', '5', '6'];
-let poem = ['', '', 'this is a very long long long long long long\n line of text.'];
+let poem;
 
 // preload()
 //
@@ -69,6 +69,7 @@ let poem = ['', '', 'this is a very long long long long long long\n line of text
 function preload() {
   // regularFont = loadFont('assets/fonts/Lato-Regular.ttf');
   regularFont = loadFont('assets/fonts/ttf/FiraCode-Regular.ttf');
+  poem = loadJSON('data/poem.json');
 }
 
 // setup()
@@ -78,6 +79,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   initiateCamera();
   initiateButton();
+  console.log(poem.verses[0]);
 }
 
 // initiateCamera()
@@ -174,42 +176,59 @@ function drawBox() {
 function game() {
   orbitControl(1.2, 1.2, 0);
   cameraControls();
-  createWorld();
+  createLetter();
   createEnvironment();
   createDie();
 }
 
+// create()
 //
-//
-//
-function createWorld() {
-  // constructor(x, y, size, fill, stroke, textures, textSize,  strokefill)
-  let world = new Cube(0, 0, environmentSize * 1.5, 50, 0, poem, 100, (200, 50, 180));
-  world.createFacesExt();
-  world.displayWorld();
+// createWorld()
+function createLetter() {
+  let letter = {
+    w: 1800,
+    h: 1000,
+    fontSize: 16.5
+  }
+  push();
+  // Set parameters for planes
+  angleMode(DEGREES);
+  fill(200);
+  noStroke();
+  rotateY(180);
+  translate(0, 0, 1500);
+  // Create plane
+  let paper = plane(letter.w, letter.h);
+  // Text parameters
+  fill(0);
+  textAlign(LEFT);
+  textFont(regularFont);
+  textSize(letter.fontSize);
+  textLeading(30);
+  let poemHalf1;
+  let poemHalf2;
+  // Apply text
+  poemHalf1 = poem.verses[0].text + poem.verses[1].text + poem.verses[2].text;
+  poemHalf2 = poem.verses[3].text + poem.verses[4].text + poem.verses[5].text;
+  paper.text(poemHalf1, -letter.w / 2 + 20, -letter.h / 2 + 30);
+  paper.text(poemHalf2, 90, -letter.h / 2 + 180);
+  pop();
 }
-
-//
-//
-//
+// Create cubes from the obj family
+// createEnvironment()
 function createEnvironment() {
   // constructor(x, y, size, fill, stroke, textures, textSize,  strokefill)
   let environment = new Cube(0, 0, environmentSize, 0, 8, numbers, 75, 255);
   environment.createFacesInt();
   environment.display();
 }
-
-//
-//
-//
+// createDie()
 function createDie() {
   // constructor(x, y, size, fill, stroke, textures, textSize, strokeFill)
   let die = new Cube(0, 0, 50, (20, 100, 250), 0, numbers, 30, 0);
   die.createFacesExt();
   die.display();
 }
-
-
 
 // cameraControls() & more
 //
@@ -229,6 +248,7 @@ function cameraControls() {
     // Show the exterior by pressing spacebar
   } else if (keyIsDown(32)) {
     camera.setPosition(perspective[abs(active)].x, perspective[abs(active)].y, perspective[abs(active)].z - 2000);
+    camera.lookAt(0, 0, 0);
   }
 }
 // Clockwise rotation

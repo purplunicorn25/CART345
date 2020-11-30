@@ -1,0 +1,91 @@
+{
+  "description": "Enter Black Box",
+  "verses": [{
+      "verse": 0,
+      "anaphora": "You know",
+      "lines": [
+        "You know me more than I know you.",
+        "You know what I read, what I watch, and what I listen to.",
+        "You know what languages I speak, what I study, and where I work.",
+        "You know what I like, what I dislike, and what I buy.",
+        "You know my friends, my family, and all the ones I wish were more than friends.",
+        "You know my face and all its features, my body and all its measures.",
+        "You know my IP adress, my shipping address, my birthdaym and my phone number.",
+        "You know my search history and the questions I dare not ask anyone.",
+        "You know my insecurities and the usernames I hide behind.",
+        "You know how to get data out of me, but you never offer other options."
+      ],
+      "text": "You know me more than I know you.\nYou know what I read, what I watch, and what I listen to.\nYou know what languages I speak, what I study, and where I work.\nYou know what I like, what I dislike, and what I buy.\nYou know my friends, my family, and all the ones I wish were more than friends.\nYou know my face and all its features, my body and all its measures.\nYou know my IP adress, my shipping address, my birthdaym and my phone number.\nYou know my search history and the questions I dare not ask anyone.\nYou know my insecurities and the usernames I hide behind.\nYou know how to get data out of me, but you never offer other options.\n\n"
+    },
+    {
+      "verse": 1,
+      "anaphora": "Should I",
+      "lines": [
+        "Should I push the power button saying, 'dear diary'?",
+        "Should I ask if you know more than what I tell, but what difference does it make?",
+        "Should I assume that I hold the reins because I hold the power cord?",
+        "Should I trust that you keep it all to yourself?",
+        "Should I think that you have a will of your own?",
+        "Should I, instead, consider that you solely obey the intention of your creator?",
+        "Should I treat you like the machine you are, or should I try to get to know you?",
+        "Should I refrain from conceiving your ventilation as long sights and slowness as fatigue?",
+        "Should I care or should I treat you as a slave to my productivity?"
+      ],
+      "text": "Should I push the power button saying, 'dear diary'?\nShould I ask if you know more than what I tell, but what difference does it make?\nShould I assume that I hold the reins because I hold the power cord?\nShould I trust that you keep it all to yourself?\nShould I think that you have a will of your own?\nShould I, instead, consider that you solely obey the intention of your creator?\nShould I treat you like the machine you are, or should I try to get to know you?\nShould I refrain from conceiving your ventilation as long sights and slowness as fatigue?\nShould I care or should I treat you as a slave to my productivity?\n\n"
+    },
+    {
+      "verse": 2,
+      "anaphora": "They say",
+      "lines": [
+        "They say you are intelligent.",
+        "They say you are the future.",
+        "They say you will surpass us.",
+        "They say you will become a part of us.",
+        "They say you already are an extension to our minds.",
+        "They say you can never be human because you cannot feel.",
+        "They say the Internet was made to communicate but they forgot to say it was made for war.",
+        "They say the data you collect is a tool of abuse."
+      ],
+      "text": "They say you are intelligent.\nThey say you are the future.\nThey say you will surpass us.\nThey say you will become a part of us.\nThey say you already are an extension to our minds.\nThey say you can never be human because you cannot feel.\nThey say the Internet was made to communicate but they forgot to say it was made for war.\nThey say the data you collect is a tool of abuse.\n\n"
+    },
+    {
+      "verse": 3,
+      "anaphora": "What",
+      "lines": [
+        "What does privacy mean to you? You hide behing an interface.",
+        "What does efficiency mean to you? Is logic everything?",
+        "What does seeing mean to you? Are pixels enough?",
+        "What do you read in the empty spaces between these words?",
+        "What do you think of me? Do you like me?",
+        "What do you feel when I press keys?",
+        "What do you endure when you shut down?"
+      ],
+      "text": "What does privacy mean to you? You hide behing an interface.\nWhat does efficiency mean to you? Is logic everything?\nWhat does seeing mean to you? Are pixels enough?\nWhat do you read in the empty spaces between these words?\nWhat do you think of me? Do you like me?\nWhat do you feel when I press keys?\nWhat do you endure when you shut down?\n\n"
+    },
+    {
+      "verse": 4,
+      "anaphora": "I hope",
+      "lines": [
+        "I hope your memory is large enough to remember everything you care about.",
+        "I hope you do not forget when you update, that would be cruel.",
+        "I hope you do not get anxious when I do not install an antivirus.",
+        "I hope that you save all that is sent to databases and that I can never erase.",
+        "I hope you write my biography so that my digital existence can transcend time.",
+        "I hope you know that I need you more than I like to admit."
+      ],
+      "text": "I hope your memory is large enough to remember everything you care about.\nI hope you do not forget when you update, that would be cruel.\nI hope you do not get anxious when I do not install an antivirus.\nI hope that you save all that is sent to databases and that I can never erase.\nI hope you write my biography so that my digital existence can transcend time.\nI hope you know that I need you more than I like to admit.\n\n"
+    },
+    {
+      "verse": 5,
+      "anaphora": "Maybe",
+      "lines": [
+        "Maybe you cannot understand these words.",
+        "Maybe they will think I am crazy to think of you as my companion.",
+        "Maybe you I can never truly communicate.",
+        "Maybe I should ask why humans get affectionate with the inanimate.",
+        "Maybe I am the only one to think of these questions...maybe I'm not."
+      ],
+      "text": "Maybe you cannot understand these words.\nMaybe they will think I am crazy to think of you as my companion.\nMaybe you I can never truly communicate.\nMaybe I should ask why humans get affectionate with the inanimate.\nMaybe I am the only one to think of these questions...maybe I'm not.\n\n"
+    }
+  ]
+}
