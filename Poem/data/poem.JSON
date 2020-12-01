@@ -1,5 +1,6 @@
 {
   "description": "Enter Black Box",
+  "greetings": ["I would like to ask somethings.", "will you hear me out?", "please listen.", "you never answer back.", "do me a favor.", "your silence is torture.", "do you understand?", "we have to talk.", "I beg you to not leave.", "let me tell you how I feel."],
   "verses": [{
       "verse": 0,
       "anaphora": "YOU\nKNOW",

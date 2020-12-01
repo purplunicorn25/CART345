@@ -19,7 +19,7 @@ let white = 255;
 let fillColor = black;
 let strokeColor = white;
 let backgroundColor = white;
-let boxSpeed = 1.15;
+let boxSpeed = 0.8;
 // BUTTON
 let button;
 let buttonPar = {
@@ -28,6 +28,8 @@ let buttonPar = {
   w: 200,
   h: 200
 };
+// TEXT
+let hovering = false;
 // CONTROL
 let start = false;
 
@@ -62,6 +64,11 @@ let boldFont;
 // DIE
 let die;
 let faces;
+
+//TIMER
+let timePassed = 0;
+let startTime = 0;
+let interval;
 
 // %TEMP%
 let poem;
@@ -116,6 +123,7 @@ function draw() {
   background(backgroundColor);
   // Determine when the user starts the game
   if (start != true) {
+    introduction();
     hover();
   } else {
     game();
@@ -133,13 +141,14 @@ function hover() {
     let d = dist(windowWidth / 2, windowHeight / 2, mouseX, mouseY);
     // Check if hovered
     if (d <= buttonPar.h * .55) {
+      hovering = true;
       // Rotate on the other side (more right (-) counters left (+) rotation)
       angle += -0.02;
       // Draw the box and dilude its color
       drawBox();
       fillColor += boxSpeed;
-      intro();
     } else {
+      hovering = false;
       // If release go back to original form
       backgroundColor = white;
       drawBox();
@@ -152,16 +161,25 @@ function hover() {
     // If the box turns completely white, enter the box
   } else if (fillColor >= 255) {
     start = true;
+    removeElements();
   }
 }
 
-function intro() {
-  // for (let i = 0; i < 20; i++) {
-  //   let voice = createDiv("hear me out");
-  //   voice.class('voice');
-  //   voice.position(0, i * 10, 0);
+function introduction() {
+  interval = random(600, 800);
+  timePassed = millis() - startTime;
+  if (hovering === true) {
+    if (timePassed > interval) {
+      let words = random(poem.greetings);
+      let greeting = createDiv(`Dear computer, ${words}`);
+      greeting.class('greeting');
+      startTime = millis();
+      timePassed = 0;
+    }
+  } else if (hovering != true && start != true) {
+    removeElements();
+  }
 }
-
 
 // drawBox()
 //
